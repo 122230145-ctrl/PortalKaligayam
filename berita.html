@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita Desa - Desa Kaligayam</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;background:#f5f7fa;color:#333;line-height:1.6;}
+a{text-decoration:none;}
+ul{list-style:none;}
+img{max-width:100%;display:block;}
+.container{width:90%;max-width:1200px;margin:auto;}
+section{padding:70px 0;}
+.section-title{text-align:center;margin-bottom:40px;}
+.section-title h2{font-size:2.2rem;color:#0d47a1;position:relative;}
+.section-title h2::after{content:'';width:80px;height:4px;background:#0d6efd;display:block;margin:10px auto;border-radius:20px;}
+.section-title p{color:#666;max-width:700px;margin:12px auto 0;}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;width:100%;padding:15px 8%;background:#0d6efd;display:flex;justify-content:space-between;align-items:center;z-index:1000;box-shadow:0 3px 15px rgba(0,0,0,0.15);}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo img{width:45px;height:45px;}
+.logo span{color:white;font-size:1.2rem;font-weight:700;}
+.nav-menu{display:flex;gap:25px;}
+.nav-menu a{color:white;font-weight:500;transition:0.3s;}
+.nav-menu a:hover{color:#ffd54f;}
+.nav-menu a.active{color:#ffd54f;}
+.hamburger{display:none;color:white;font-size:1.5rem;cursor:pointer;}
+.dropdown{position:relative;}
+.dropdown-menu{position:absolute;top:100%;left:0;min-width:220px;background:#fff;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,0.15);display:none;z-index:999;}
+.dropdown-menu li{width:100%;}
+.dropdown-menu li a{display:block;padding:12px 15px;color:#333;transition:0.3s;}
+.dropdown-menu li a:hover{background:#0d6efd;color:#fff;}
+.dropdown:hover .dropdown-menu{display:block;}
+.dropdown-head{display:flex;align-items:center;justify-content:center;gap:6px;}
+.dropdown-toggle{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:white;font-size:12px;padding:4px 8px;}
+.dropdown-toggle i{transition:0.3s;}
+.dropdown.show .dropdown-toggle i{transform:rotate(180deg);}
+.dropdown.show .dropdown-menu{display:block;}
+
+/* HERO */
+.hero-infografis{padding-top:150px;padding-bottom:60px;background:linear-gradient(135deg,#0d47a1,#0d6efd);color:#fff;text-align:center;}
+.hero-infografis h1{font-size:2.7rem;margin-bottom:15px;}
+.hero-infografis p{max-width:750px;margin:auto;color:rgba(255,255,255,.9);font-size:1.05rem;}
+
+/* BERITA GRID */
+.berita-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.berita-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,.08);transition:.3s;}
+.berita-card:hover{transform:translateY(-8px);box-shadow:0 10px 25px rgba(0,0,0,.12);}
+.berita-thumb{height:170px;position:relative;display:flex;align-items:flex-end;padding:15px;}
+.berita-kategori{background:rgba(255,255,255,.92);color:#0d47a1;font-size:.75rem;font-weight:700;padding:5px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.03em;}
+.berita-content{padding:22px;}
+.berita-tanggal{color:#888;font-size:.82rem;display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+.berita-content h3{color:#0d47a1;font-size:1.15rem;margin-bottom:10px;line-height:1.4;}
+.berita-content p{color:#666;font-size:.92rem;margin-bottom:14px;}
+.berita-link{color:#0d6efd;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;transition:.3s;}
+.berita-link:hover{gap:10px;}
+
+/* BERITA DETAIL */
+.berita-detail{background:#fff;border-top:1px solid #eee;}
+.berita-detail:nth-child(odd){background:#eef3fb;}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:#0d6efd;font-weight:600;margin-bottom:25px;}
+.back-link:hover{color:#0d47a1;}
+.berita-detail-header{height:220px;border-radius:16px;display:flex;align-items:flex-end;padding:20px;margin-bottom:20px;}
+.berita-detail h2{color:#0d47a1;font-size:1.8rem;margin:14px 0 20px;}
+.berita-detail p{color:#444;margin-bottom:14px;max-width:800px;}
+
+footer{background:#0b1f44;color:white;text-align:center;padding:50px 20px;}
+.footer-content h3{margin-bottom:15px;}
+.footer-content p{margin-bottom:15px;}
+.social{margin:20px 0;}
+.social a{color:white;font-size:1.5rem;margin:0 10px;transition:0.3s;}
+.social a:hover{color:#ffc107;}
+
+@media(max-width:900px){
+    .berita-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+    .hero-infografis h1{font-size:2rem;}
+    .nav-menu{
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:75px;
+        left:0;
+        width:100%;
+        background:#0d6efd;
+        padding:20px;
+        text-align:center;
+    }
+    .nav-menu.active{display:flex;}
+    .hamburger{display:block;}
+    .berita-grid{grid-template-columns:1fr;}
+    .dropdown:hover .dropdown-menu{display:none;}
+    .dropdown-menu{position:static;width:100%;margin-top:10px;box-shadow:none;}
+    .dropdown.show .dropdown-menu{display:block;}
+}
+
+    </style>
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+<nav class="navbar">
+
+    <div class="logo">
+        <img src="./logo.png" alt="Logo Desa">
+        <span>KALIGAYAM</span>
+    </div>
+
+    <ul class="nav-menu">
+
+        <li><a href="index.html">Beranda</a></li>
+
+        <li><a href="profil-desa.html">Profil Desa</a></li>
+
+        <li><a href="infografis.html">Infografis</a></li>
+
+        <!-- MENU LAYANAN INFORMASI -->
+        <li class="dropdown">
+
+            <div class="dropdown-head">
+                <a href="layanan-informasi.html">Layanan Informasi</a>
+                <span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>
+            </div>
+
+            <ul class="dropdown-menu">
+                <li><a href="layanan-informasi.html#kk">Kartu Keluarga</a></li>
+                <li><a href="layanan-informasi.html#ktp">KTP</a></li>
+                <li><a href="layanan-informasi.html#kia">KIA</a></li>
+                <li><a href="layanan-informasi.html#akta-kematian">Akta Kematian</a></li>
+                <li><a href="layanan-informasi.html#akta-lahir">Akta Lahir</a></li>
+                <li><a href="layanan-informasi.html#akta-cerai">Akta Cerai</a></li>
+                <li><a href="layanan-informasi.html#pernikahan">Pernikahan</a></li>
+            </ul>
+
+        </li>
+
+        <li><a href="berita.html" class="active">Berita</a></li>
+
+        <li><a href="index.html#contact">Kontak</a></li>
+
+    </ul>
+
+    <div class="hamburger">
+        <i class="fas fa-bars"></i>
+    </div>
+
+</nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-infografis">
+        <div class="container">
+            <h1>Berita Desa</h1>
+            <p>
+                Informasi dan kabar terbaru seputar kegiatan, pembangunan,
+                dan peristiwa yang terjadi di Desa Kaligayam.
+            </p>
+        </div>
+    </section>
+
+    <!-- DAFTAR BERITA -->
+    <section id="daftar-berita">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Berita Terbaru</h2>
+                <p>Contoh berita untuk keperluan demonstrasi. Silakan perbarui dengan berita resmi desa.</p>
+            </div>
+
+            <div class="berita-grid">
+                <div class="berita-card">
+                    <div class="berita-thumb" style="background:linear-gradient(135deg,#0d6efd,#0d47a1);">
+                        <span class="berita-kategori">Pembangunan</span>
+                    </div>
+                    <div class="berita-content">
+                        <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 3 Juli 2026</span>
+                        <h3>Perbaikan Jalan Dukuh Kaponan Rampung 100%</h3>
+                        <p>Proyek perbaikan jalan penghubung Dukuh Kaponan dan Dukuh Ngemplak sepanjang 1,2 km resmi rampung dan siap digunakan warga.</p>
+                        <a href="#berita-1" class="berita-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="berita-card">
+                    <div class="berita-thumb" style="background:linear-gradient(135deg,#198754,#0d47a1);">
+                        <span class="berita-kategori">Kesehatan</span>
+                    </div>
+                    <div class="berita-content">
+                        <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 28 Juni 2026</span>
+                        <h3>Posyandu Balita Rutin Digelar di Balai Desa</h3>
+                        <p>Kegiatan Posyandu bulanan diikuti puluhan balita dari seluruh dukuh untuk pemeriksaan tumbuh kembang dan imunisasi.</p>
+                        <a href="#berita-2" class="berita-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="berita-card">
+                    <div class="berita-thumb" style="background:linear-gradient(135deg,#ffc107,#0d47a1);">
+                        <span class="berita-kategori">Pertanian</span>
+                    </div>
+                    <div class="berita-content">
+                        <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 20 Juni 2026</span>
+                        <h3>Panen Raya Padi di Dukuh Mindi Capai Hasil Memuaskan</h3>
+                        <p>Petani Dukuh Mindi merayakan panen raya musim ini dengan hasil yang meningkat dibanding musim sebelumnya.</p>
+                        <a href="#berita-3" class="berita-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="berita-card">
+                    <div class="berita-thumb" style="background:linear-gradient(135deg,#6f42c1,#0d47a1);">
+                        <span class="berita-kategori">Sosial Budaya</span>
+                    </div>
+                    <div class="berita-content">
+                        <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 12 Juni 2026</span>
+                        <h3>Peringatan Hari Jadi Desa Diramaikan Pentas Seni Warga</h3>
+                        <p>Warga dari sembilan dukuh tumpah ruah memeriahkan peringatan hari jadi desa dengan berbagai pentas seni dan lomba tradisional.</p>
+                        <a href="#berita-4" class="berita-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="berita-card">
+                    <div class="berita-thumb" style="background:linear-gradient(135deg,#fd7e14,#0d47a1);">
+                        <span class="berita-kategori">Ekonomi</span>
+                    </div>
+                    <div class="berita-content">
+                        <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 5 Juni 2026</span>
+                        <h3>Pelatihan UMKM Tingkatkan Kualitas Produk Warga</h3>
+                        <p>Puluhan pelaku UMKM mengikuti pelatihan pengemasan dan pemasaran digital untuk memperluas jangkauan pasar produk lokal.</p>
+                        <a href="#berita-5" class="berita-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="berita-card">
+                    <div class="berita-thumb" style="background:linear-gradient(135deg,#dc3545,#0d47a1);">
+                        <span class="berita-kategori">Olahraga</span>
+                    </div>
+                    <div class="berita-content">
+                        <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 29 Mei 2026</span>
+                        <h3>Turnamen Voli Antar Dukuh Sukses Digelar</h3>
+                        <p>Turnamen bola voli antar dukuh berlangsung sengit dan sukses mempererat silaturahmi warga dari sembilan dukuh.</p>
+                        <a href="#berita-6" class="berita-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="berita-1" class="berita-detail">
+        <div class="container">
+            <a href="#daftar-berita" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Berita</a>
+            <div class="berita-detail-header" style="background:linear-gradient(135deg,#0d6efd,#0d47a1);">
+                <span class="berita-kategori">Pembangunan</span>
+            </div>
+            <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 3 Juli 2026</span>
+            <h2>Perbaikan Jalan Dukuh Kaponan Rampung 100%</h2>
+                <p>Pemerintah Desa Kaligayam bersama warga secara gotong royong menyelesaikan proyek perbaikan jalan penghubung Dukuh Kaponan dan Dukuh Ngemplak sepanjang 1,2 kilometer. Proyek yang dimulai sejak awal Juni 2026 ini menggunakan dana dari Anggaran Pendapatan dan Belanja Desa (APBDes) tahun berjalan.</p>
+                <p>Kepala Desa Kaligayam menyampaikan apresiasi kepada seluruh warga yang telah berpartisipasi dalam proses pembangunan, mulai dari perencanaan hingga pelaksanaan di lapangan. Jalan yang sebelumnya rusak dan sulit dilalui saat musim hujan kini sudah dapat digunakan dengan nyaman oleh kendaraan roda dua maupun roda empat.</p>
+                <p>Dengan selesainya perbaikan jalan ini, diharapkan aktivitas ekonomi warga khususnya distribusi hasil pertanian dari Dukuh Kaponan semakin lancar dan efisien.</p>
+        </div>
+    </section>
+    <section id="berita-2" class="berita-detail">
+        <div class="container">
+            <a href="#daftar-berita" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Berita</a>
+            <div class="berita-detail-header" style="background:linear-gradient(135deg,#198754,#0d47a1);">
+                <span class="berita-kategori">Kesehatan</span>
+            </div>
+            <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 28 Juni 2026</span>
+            <h2>Posyandu Balita Rutin Digelar di Balai Desa</h2>
+                <p>Posyandu balita rutin bulan Juni 2026 dilaksanakan di Balai Desa Kaligayam dan diikuti oleh puluhan balita dari sembilan dukuh. Kegiatan ini meliputi penimbangan berat badan, pengukuran tinggi badan, pemberian vitamin A, serta imunisasi sesuai jadwal.</p>
+                <p>Bidan desa bersama kader Posyandu juga memberikan edukasi kepada para orang tua mengenai pentingnya gizi seimbang untuk mencegah stunting pada anak. Kegiatan berjalan lancar dengan antusiasme tinggi dari warga.</p>
+                <p>Posyandu berikutnya dijadwalkan pada bulan depan dengan lokasi yang akan diinformasikan melalui pengurus RT/RW masing-masing dukuh.</p>
+        </div>
+    </section>
+    <section id="berita-3" class="berita-detail">
+        <div class="container">
+            <a href="#daftar-berita" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Berita</a>
+            <div class="berita-detail-header" style="background:linear-gradient(135deg,#ffc107,#0d47a1);">
+                <span class="berita-kategori">Pertanian</span>
+            </div>
+            <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 20 Juni 2026</span>
+            <h2>Panen Raya Padi di Dukuh Mindi Capai Hasil Memuaskan</h2>
+                <p>Musim panen padi tahun ini membawa kabar gembira bagi petani Dukuh Mindi. Hasil panen tercatat meningkat dibandingkan musim sebelumnya berkat penerapan sistem irigasi yang lebih baik dan penggunaan bibit unggul.</p>
+                <p>Kelompok Tani Dukuh Mindi menggelar syukuran panen raya yang dihadiri oleh perangkat desa dan penyuluh pertanian dari kecamatan. Dalam kesempatan tersebut, penyuluh juga memberikan pendampingan terkait teknik pascapanen agar kualitas gabah tetap terjaga.</p>
+                <p>Desa Kaligayam berkomitmen untuk terus mendukung sektor pertanian sebagai salah satu potensi unggulan desa melalui program bantuan alat dan pelatihan bagi kelompok tani.</p>
+        </div>
+    </section>
+    <section id="berita-4" class="berita-detail">
+        <div class="container">
+            <a href="#daftar-berita" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Berita</a>
+            <div class="berita-detail-header" style="background:linear-gradient(135deg,#6f42c1,#0d47a1);">
+                <span class="berita-kategori">Sosial Budaya</span>
+            </div>
+            <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 12 Juni 2026</span>
+            <h2>Peringatan Hari Jadi Desa Diramaikan Pentas Seni Warga</h2>
+                <p>Peringatan hari jadi Desa Kaligayam tahun ini berlangsung meriah dengan rangkaian acara yang melibatkan warga dari seluruh dukuh. Acara diawali dengan kirab budaya, dilanjutkan dengan pentas seni tari tradisional, karawitan, dan lomba-lomba rakyat seperti panjat pinang dan tarik tambang.</p>
+                <p>Kepala Desa dalam sambutannya mengajak seluruh warga untuk terus menjaga kekompakan dan gotong royong demi kemajuan desa. Acara ditutup dengan pertunjukan wayang kulit semalam suntuk yang disaksikan ratusan warga.</p>
+        </div>
+    </section>
+    <section id="berita-5" class="berita-detail">
+        <div class="container">
+            <a href="#daftar-berita" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Berita</a>
+            <div class="berita-detail-header" style="background:linear-gradient(135deg,#fd7e14,#0d47a1);">
+                <span class="berita-kategori">Ekonomi</span>
+            </div>
+            <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 5 Juni 2026</span>
+            <h2>Pelatihan UMKM Tingkatkan Kualitas Produk Warga</h2>
+                <p>Dalam upaya mendorong perkembangan ekonomi warga, Pemerintah Desa Kaligayam bekerja sama dengan Dinas Koperasi dan UKM menggelar pelatihan bagi pelaku Usaha Mikro, Kecil, dan Menengah (UMKM). Pelatihan difokuskan pada teknik pengemasan produk yang lebih menarik serta strategi pemasaran melalui media sosial dan marketplace.</p>
+                <p>Sebanyak 40 pelaku UMKM dari berbagai dukuh turut serta, mulai dari produsen makanan ringan, kerajinan tangan, hingga hasil olahan pertanian. Peserta tampak antusias mempraktikkan langsung materi yang diberikan oleh narasumber.</p>
+                <p>Diharapkan pelatihan ini dapat meningkatkan daya saing produk UMKM desa sehingga mampu menembus pasar yang lebih luas.</p>
+        </div>
+    </section>
+    <section id="berita-6" class="berita-detail">
+        <div class="container">
+            <a href="#daftar-berita" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Berita</a>
+            <div class="berita-detail-header" style="background:linear-gradient(135deg,#dc3545,#0d47a1);">
+                <span class="berita-kategori">Olahraga</span>
+            </div>
+            <span class="berita-tanggal"><i class="fas fa-calendar-days"></i> 29 Mei 2026</span>
+            <h2>Turnamen Voli Antar Dukuh Sukses Digelar</h2>
+                <p>Turnamen bola voli antar dukuh yang digelar selama dua pekan resmi ditutup dengan pertandingan final yang berlangsung sengit. Turnamen ini diikuti oleh tim perwakilan dari sembilan dukuh di Desa Kaligayam dan menjadi ajang tahunan yang dinanti warga.</p>
+                <p>Selain sebagai ajang olahraga, turnamen ini juga menjadi sarana mempererat tali silaturahmi antarwarga dari berbagai dukuh. Panitia berencana menjadikan kegiatan ini agenda rutin tahunan dengan cabang olahraga yang lebih beragam.</p>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-content">
+
+            <h3>Desa Kaligayam</h3>
+
+            <p>
+                Website resmi desa sebagai sarana informasi,
+                komunikasi, dan pelayanan masyarakat.
+            </p>
+
+            <div class="social">
+                <a href="https://www.tiktok.com/@kaligayam.official" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/desa_kaligayam" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>
+                © KKN UPNYK 2026
+            </p>
+
+        </div>
+
+    </footer>
+
+
+<script src="index.js"></script>
+
+</body>
+</html>
